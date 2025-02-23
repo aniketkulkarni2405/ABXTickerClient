@@ -19,13 +19,13 @@
 #define SERVER_IP "127.0.0.1"
 using json = nlohmann::json;
 
-struct RequestPayload
+struct tagTickerRequestPayload
 {
 	uint8_t CallType;
 	uint8_t ResendRequest;
 };
 
-struct ResponsePayload
+struct tagTickerResponsePayload
 {
 	char Symbol[4];
 	char BuyOrSell;
@@ -39,7 +39,7 @@ class CABXTickerClient
 private:
 	SOCKET m_nClientSocket;
 	std::unordered_set<uint8_t> m_setMissingSequences;
-	std::unordered_map<int, std::unique_ptr<ResponsePayload>> m_mapResponses;
+	std::unordered_map<int, std::unique_ptr<tagTickerResponsePayload>> m_mapResponses;
 	int m_nLastSequence;
 	int m_nFirstSequence = INT_MAX;
 	std::thread m_nLoggingThread;

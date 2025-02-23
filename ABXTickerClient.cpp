@@ -9,7 +9,7 @@ void CABXTickerClient::HandleSocketError(const std::string& message) {
 void CABXTickerClient::SendStreamAllPacketsRequest()
 {
     char lcPayLoad[3] = { 0 };
-    RequestPayload lstPayLoad = { 0 };
+    tagTickerRequestPayload lstPayLoad = { 0 };
     lstPayLoad.CallType = 1;
     lstPayLoad.ResendRequest = 0;
     memcpy(lcPayLoad, &lstPayLoad, 2);
@@ -25,7 +25,7 @@ void CABXTickerClient::GetMissingTickerData(uint8_t cSeqNo)
     char lcMissingPacketReq[3] = { 0 };
     char lcRecvBuffer[20] = { 0 };
     const int packetSize = 17;
-    RequestPayload lstReqPayLoad = { 0 };
+    tagTickerRequestPayload lstReqPayLoad = { 0 };
     lstReqPayLoad.CallType = 2;
     lstReqPayLoad.ResendRequest = cSeqNo;
     memcpy(lcMissingPacketReq, &lstReqPayLoad, 2);
@@ -43,12 +43,12 @@ void CABXTickerClient::GetMissingTickerData(uint8_t cSeqNo)
     {
         Log("Incomplete packet received :: GetMissingTickerData()");
     }
-    std::unique_ptr<ResponsePayload> luptrResponsePayLoad(new ResponsePayload);
-    luptrResponsePayLoad->BuyOrSell = ((ResponsePayload*)lcRecvBuffer)->BuyOrSell;
+    std::unique_ptr<tagTickerResponsePayload> luptrResponsePayLoad(new tagTickerResponsePayload);
+    luptrResponsePayLoad->BuyOrSell = ((tagTickerResponsePayload*)lcRecvBuffer)->BuyOrSell;
     luptrResponsePayLoad->Quantity = ntohl(*reinterpret_cast<int*>(&lcRecvBuffer[5]));
     luptrResponsePayLoad->Price = ntohl(*reinterpret_cast<int*>(&lcRecvBuffer[9]));
     luptrResponsePayLoad->Sequence = ntohl(*reinterpret_cast<int*>(&lcRecvBuffer[13]));
-    memcpy(luptrResponsePayLoad->Symbol, ((ResponsePayload*)lcRecvBuffer)->Symbol, 4);
+    memcpy(luptrResponsePayLoad->Symbol, ((tagTickerResponsePayload*)lcRecvBuffer)->Symbol, 4);
     m_mapResponses[luptrResponsePayLoad->Sequence] = std::move(luptrResponsePayLoad);
 }
 void CABXTickerClient::ReceiveStreamAllPacketsResponse() {
@@ -82,12 +82,12 @@ void CABXTickerClient::ReceiveStreamAllPacketsResponse() {
             Log("Incomplete packet received :: ReceiveStreamAllPacketsResponse()");
             continue;
         }
-        std::unique_ptr<ResponsePayload> luptrResponsePayLoad(new ResponsePayload);
-        luptrResponsePayLoad->BuyOrSell = ((ResponsePayload*)lcRecvBuffer)->BuyOrSell;
+        std::unique_ptr<tagTickerResponsePayload> luptrResponsePayLoad(new tagTickerResponsePayload);
+        luptrResponsePayLoad->BuyOrSell = ((tagTickerResponsePayload*)lcRecvBuffer)->BuyOrSell;
         luptrResponsePayLoad->Quantity = ntohl(*reinterpret_cast<int*>(&lcRecvBuffer[5]));
         luptrResponsePayLoad->Price = ntohl(*reinterpret_cast<int*>(&lcRecvBuffer[9]));
         luptrResponsePayLoad->Sequence = ntohl(*reinterpret_cast<int*>(&lcRecvBuffer[13]));
-        memcpy(luptrResponsePayLoad->Symbol, ((ResponsePayload*)lcRecvBuffer)->Symbol, 4);
+        memcpy(luptrResponsePayLoad->Symbol, ((tagTickerResponsePayload*)lcRecvBuffer)->Symbol, 4);
         m_nFirstSequence = min(luptrResponsePayLoad->Sequence, m_nFirstSequence);
         while ((PrevSequence + 1) < luptrResponsePayLoad->Sequence)
         {
@@ -124,7 +124,7 @@ void CABXTickerClient::CreateSocket()
 }
 void CABXTickerClient::AppendTickerToJSON()
 {
-    ResponsePayload* lstResponse = nullptr;
+    tagTickerResponsePayload* lstResponse = nullptr;
     json responseArray = json::array();
     for (int i = m_nFirstSequence; i <= m_nLastSequence; i++)
     {
@@ -192,6 +192,7 @@ int main() {
         std::cout << "2. Exit" << std::endl;
         int choice;
         std::cin >> choice;
+
         switch (choice)
         {
         case 1:

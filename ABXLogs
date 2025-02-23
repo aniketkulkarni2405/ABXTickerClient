@@ -1,0 +1,30 @@
+=========== ABX TICKER CLIENT ===========
+=========== ABX TICKER CLIENT ===========
+2025-02-23 16:26:26 - Connected to server :: CreateSocket()
+2025-02-23 16:26:26 - Request for Stream All packets sent :: SendStreamAllPacketsRequest()
+2025-02-23 16:26:26 - Server closed the connection :: ReceiveStreamAllPacketsResponse()
+2025-02-23 16:26:26 - Connected to server :: CreateSocket()
+2025-02-23 16:26:26 - Requested for missing packet with sequence no. : 3
+2025-02-23 16:26:26 - Requested for missing packet with sequence no. : 4
+2025-02-23 16:26:26 - Requested for missing packet with sequence no. : 9
+2025-02-23 16:26:26 - Ticker data written to file successfully :: AppendTickerToJSON()
+
+2025-02-23 16:26:26 - Connected to server :: CreateSocket()
+2025-02-23 16:26:26 - Request for Stream All packets sent :: SendStreamAllPacketsRequest()
+2025-02-23 16:26:26 - Server closed the connection :: ReceiveStreamAllPacketsResponse()
+2025-02-23 16:26:26 - Connected to server :: CreateSocket()
+2025-02-23 16:26:26 - Requested for missing packet with sequence no. : 2
+2025-02-23 16:26:26 - Requested for missing packet with sequence no. : 12
+2025-02-23 16:26:26 - Requested for missing packet with sequence no. : 4
+2025-02-23 16:26:26 - Requested for missing packet with sequence no. : 7
+2025-02-23 16:26:26 - Ticker data written to file successfully :: AppendTickerToJSON()
+
+2025-02-23 16:26:27 - Connected to server :: CreateSocket()
+2025-02-23 16:26:27 - Request for Stream All packets sent :: SendStreamAllPacketsRequest()
+2025-02-23 16:26:27 - Server closed the connection :: ReceiveStreamAllPacketsResponse()
+2025-02-23 16:26:27 - Connected to server :: CreateSocket()
+2025-02-23 16:26:27 - Requested for missing packet with sequence no. : 1
+2025-02-23 16:26:27 - Requested for missing packet with sequence no. : 10
+2025-02-23 16:26:27 - Requested for missing packet with sequence no. : 11
+2025-02-23 16:26:27 - Ticker data written to file successfully :: AppendTickerToJSON()
+
